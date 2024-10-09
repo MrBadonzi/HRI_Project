@@ -21,9 +21,9 @@ configuration = {"bodyLanguageMode":"contextual"}
 ans_service.say("Hello. How are you?", configuration)
 
 # normal posture
-rp_service = session.service("ALRobotPosture")
-posture = "Stand"
-speed = 0.7
-rp_service.goToPosture(posture,speed)
+#rp_service = session.service("ALRobotPosture")
+#posture = "Stand"
+#speed = 0.7
+#rp_service.goToPosture(posture,speed)
 app.run()
 
