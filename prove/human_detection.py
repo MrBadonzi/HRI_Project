@@ -27,8 +27,16 @@ sonarValueList = ["Device/SubDeviceList/Platform/Front/Sonar/Sensor/Value",
 sonarValues =  memory_service.getListData(sonarValueList)
 print(sonarValues) # front, back
 
-anySonar = memory_service.subscriber("SonarRightNothingDetected")
-idAnySonar = anySonar.signal.connect(onSonar)
+#anySonar = memory_service.subscriber("Sonar")
+#idAnySonar = anySonar.signal.connect(onSonar)
+people_detected = False
+while not people_detected:
+    sonarValues =  memory_service.getListData(sonarValueList)
+    #print(sonarValues)
+    if sonarValues[0] != 0.0 or sonarValues[1] != 0.0:
+        print(sonarValues)
+        people_detected = True
+
 #sonar_service.subscribe("myApp")
 # left_sonar_value = memory_service.getData("Device/SubDeviceList/Platform/Front/Sonar/Sensor/Value")
 # right_sonar_value = memory_service.getData("Device/SubDeviceList/Platform/Back/Sonar/Sensor/Value")

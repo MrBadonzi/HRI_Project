@@ -1,48 +1,66 @@
-import os, sys
-from textblob import TextBlob
-from polyglot.detect import Detector
-from sonar_human_detection import sonar_detection
-
-pdir = os.getenv('PEPPER_TOOLS_HOME')
-sys.path.append(pdir+ '/cmd_server')
-import pepper_cmd
-from pepper_cmd import *
+import os, qi
+from sonar import *
+import argparse
 
 if __name__ == "__main__":
-    begin() # connect to robot/simulator with IP in PEPPER_IP env variable
-
-    # see pepper_tools/cmd_server/pepper_cmd.py
-    pepper_cmd.robot.startSensorMonitor()
-
-    # wait until front sonar detect something (range < 1.0)
-    # personHere = False
-    # while not personHere:
-    #     p = pepper_cmd.robot.sensorvalue()
-    #     personHere = p[1]<1.0 and  p[1]!=0  # front sonar
-    personHere = False
-    while not personHere:
-        personHere = sonar_detection()
-    # speech synthesis
-    pepper_cmd.robot.say("Benvenuto! Posso aiutarla?")
-
-    # speech recognition
-    # vocabulary = list of keywords, e.g. ["yes", "no", "please"]
-    vocabulary = ["si", "no"]
-    timeout = 30 # seconds after function returns
-    answer = pepper_cmd.robot.asr(vocabulary,timeout)
-    if answer!="":  # valid answer
-        lang_dict = Detector(answer).language
-        if lang_dict.code == 'en':
-            pepper_cmd.robot.say("Welcome! Can I help you?")
-        elif lang_dict.code == 'it':
-            if answer == 'si': #TODO: gestire tutte le risposte positive
-              pepper_cmd.robot.say("Vuole accomodarsi o vuole vedere il menu?")
-            elif answer == 'no':  #TODO: gestire tutte le risposte negative
-                pepper_cmd.robot.say("Okay, scusi il disturbo")  
-        else:
-            pepper_cmd.robot.say("Sorry, I only speak Italian and English")
-
-    pepper_cmd.robot.stopSensorMonitor()
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument("--project-path", type=str,
+                        default="/home/elisa/playground/HRI_Project/mini_topic.top")
+   
+    args = parser.parse_args()
+    project_path = args.project_path
 
 
-    end()
+    pip = os.getenv('PEPPER_IP')
+    pport = 9559
+    url = "tcp://" + pip + ":" + str(pport)
+
+    app = qi.Application(["App", "--qi-url=" + url ])
+    app.start() # non blocking
+    session = app.session
+    memory_service = app.session.service("ALMemory")
+
+    # sonar
+    #EVENTUALMENTE PER CONNESSIONE IN REALE
+    #sonar_service = session.service("ALSonar") 
+
+    sonar = Sonar(memory_service)
+    people_detected = sonar.peopleDetection()
+    if people_detected:
+        print("persona trovata")
+        tts_service = session.service("ALTextToSpeech")
+        tts_service.setLanguage("Italian")
+        tts_service.setParameter("speed", 100)
+        tts_service.say("Benvenuto! Posso aiutarla?")
+        ALDialog = session.service("ALDialog")
+        ALDialog.setLanguage("English")
+
+
+        # Loading the topic given by the user (absolute path is required)
+        topf_path = project_path.decode('utf-8')
+        print(topf_path)
+        topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
+
+        # Activating the loaded topic
+        ALDialog.activateTopic(topic_name)
+
+        # Starting the dialog engine - we need to type an arbitrary string as the identifier
+        # We subscribe only ONCE, regardless of the number of topics we have activated
+        ALDialog.subscribe('my_dialog_example')
+
+        try:
+            raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")
+        finally:
+            # stopping the dialog engine
+            ALDialog.unsubscribe('my_dialog_example')
+
+            # Deactivating the topic
+            ALDialog.deactivateTopic(topic_name)
+
+            # now that the dialog engine is stopped and there are no more activated topics,
+            # we can unload our topic and free the associated memory
+            ALDialog.unloadTopic(topic_name)
+
+   
+    app.run() # blocking
