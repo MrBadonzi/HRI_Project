@@ -9,7 +9,7 @@ if __name__ == "__main__":
     
     parser.add_argument("--project-path", type=str,
                         default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")
-   
+
     args = parser.parse_args()
     project_path = args.project_path
 
