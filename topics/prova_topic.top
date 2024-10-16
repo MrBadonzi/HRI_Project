@@ -1,6 +1,3 @@
-topic: ~example_topic()
-language: enu
-
 concept:(food) [fruits chicken beef eggs]
 
 u: (I [want "would like"] {some} _~food) Sure! You must really like $1 .
