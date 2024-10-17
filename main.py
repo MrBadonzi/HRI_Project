@@ -1,38 +1,39 @@
+## TODO: aggiungere movimenti quando: si mostra il percorso per il tavolo
+##                                    si dice che non posto
+##                                    si dice che non prenotazione
+##                                    ancora posto!!  
 import os, qi
 from sonar import *
+from database import *
 import argparse
 import os
 from naoqi import ALProxy
 
-
 def handleName(lastInput):
-    if lastInput in Namedatabase:
-        topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
-    else:
+    res_found = False
+    for elem in database:
+        if lastInput == elem.getName().lower():
+            table = elem.getTable()
+            tts_service.say("Please follow the indications to table " + str(table))
+            res_found = True
+            break
+    if not res_found:
         tts_service.say("I don't have any reservation with that name. I will contact someone")
 
 def handleNumber(lastInput):
     if lastInput.isdigit():
-        print(lastInput)
-    # if lastInput in Numberdatabase:
-    #     topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
-    # else:
-    #     tts_service.say("I don't have any reservation with that name. I will contact someone")
+        if freeTables:
+            tts_service.say("We have a free spot left! Please follow the indications to table " + str(freeTables.pop()))
+        else:
+            tts_service.say("I am sorry, we are full for today! I can still show you the menu if you want")
+   
 
 
 
 def handleLastAnswer(lastAnswer):
-    print(lastAnswer)
     if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
-        # rispondere con un nome ...
-        # controllo database per prenotazione...
-        # se trovata mostrare tavolo
-        # se non trovata dire errore
-        print("aspetto nome")
         lastInput.signal.connect(handleName)
-    # elif "how many" in lastAnswer.lower():
-    #     print("aspetto numero")
-    #     lastInput.signal.connect(handleNumber)
+   
 
 
 
@@ -40,6 +41,14 @@ def handleLastAnswer(lastAnswer):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
+    tables = {1, 2, 3, 4, 5, 6}
+
+
+    database = [Reservation("Mario", 3, 1), Reservation("Fraco", 4, 2), Reservation("Giuseppe", 2, 3), Reservation("Giulia", 3, 4),
+                          Reservation("Sara", 4, 5), Reservation("Totti", 2, 6)]
+    
+    freeTables = getFreeTables(tables, database)
+
     parser.add_argument("--project-path", type=str,
                         default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")
 
@@ -66,7 +75,7 @@ if __name__ == "__main__":
     if people_detected:
         print("persona trovata")
         tts_service = session.service("ALTextToSpeech")
-        tts_service.setLanguage("Italian")
+        tts_service.setLanguage("English") #Italian
         tts_service.setParameter("speed", 100)
         tts_service.say("Welcome! Can I help you?") #Benvenuto! Posso aiutarla?
         

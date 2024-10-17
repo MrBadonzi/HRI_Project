@@ -6,6 +6,4 @@ u: ([yes sure] {[thanks "thank you"]}) Do you want to have a look at the menu or
     u1: ({I [want "would like"] to} seat) Do you have a reservation?
         u2: (yes) What is the name of your reservation?
         u2: (no) How many seats do you need?
-            u4: ([1 2 3 4 5 6 7 8 9 10]) I am checking the database to see if we have some free spots.
-            ....
 u: (no {[thanks "thank you"]}) Alright, have a nice day!
