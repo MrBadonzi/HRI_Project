@@ -1,10 +1,11 @@
 # HRI_Project
 ## Start docker:
+- On terminal 1
     ```sh
 	cd hri_software/docker
     ./run.bash [X11|nvidia|vnc]
 	```
-On terminal 2:
+- On terminal 2:
     ```sh
 	docker exec -it pepperhri tmux a
 	```
