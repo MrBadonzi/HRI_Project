@@ -4,6 +4,39 @@ import argparse
 import os
 from naoqi import ALProxy
 
+
+def handleName(lastInput):
+    if lastInput in Namedatabase:
+        topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
+    else:
+        tts_service.say("I don't have any reservation with that name. I will contact someone")
+
+def handleNumber(lastInput):
+    if lastInput.isdigit():
+        print(lastInput)
+    # if lastInput in Numberdatabase:
+    #     topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
+    # else:
+    #     tts_service.say("I don't have any reservation with that name. I will contact someone")
+
+
+
+def handleLastAnswer(lastAnswer):
+    print(lastAnswer)
+    if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
+        # rispondere con un nome ...
+        # controllo database per prenotazione...
+        # se trovata mostrare tavolo
+        # se non trovata dire errore
+        print("aspetto nome")
+        lastInput.signal.connect(handleName)
+    # elif "how many" in lastAnswer.lower():
+    #     print("aspetto numero")
+    #     lastInput.signal.connect(handleNumber)
+
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
@@ -66,6 +99,16 @@ if __name__ == "__main__":
         # Starting the dialog engine - we need to type an arbitrary string as the identifier
         # We subscribe only ONCE, regardless of the number of topics we have activated
         ALDialog.subscribe('my_dialog_example')
+
+        ####PROCESS EVERY ROBOT ANSWER
+        lastAnswer = memory_service.subscriber("Dialog/LastAnswer")
+    
+        lastAnswer.signal.connect(handleLastAnswer)
+
+        ####PROCESS EVERY HUMAN ANSWERE
+        lastInput = memory_service.subscriber("Dialog/LastInput")
+    
+        lastInput.signal.connect(handleNumber)
 
         try:
             raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")
