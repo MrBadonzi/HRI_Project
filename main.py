@@ -1,7 +1,7 @@
-## TODO: aggiungere movimenti quando: si mostra il percorso per il tavolo
-##                                    si dice che non posto
-##                                    si dice che non prenotazione
-##                                    ancora posto!!  
+#TODO: aggiungere movimenti quando: si mostra il percorso per il tavolo
+#                                    si dice che non posto
+#                                    si dice che non prenotazione
+#                                    ancora posto!!
 import os, qi
 from sonar import *
 from database import *
