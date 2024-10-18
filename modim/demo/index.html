@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pepper - Restaurant Maitre Interface</title>
+    <script src="qaws.js"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <h1 class="large-bold">Welcome to Our Restaurant</h1>
+
+    <div class="main-section">
+        <!-- Left button for the menu -->
+        <div class="button-section">
+            <div class="button-wrapper"> <!-- New wrapper div for circle -->
+                <button class="button menu" onclick="showMenu()">
+                    <span class="icon">📜</span> <!-- Menu Icon -->
+                </button>
+            </div>
+            <p class="button-label">View Menu</p>
+        </div>
+
+        <!-- Vertical divider line -->
+        <div class="divider"></div>
+
+        <!-- Right button for checking table availability -->
+        <div class="button-section">
+            <div class="button-wrapper"> <!-- New wrapper div for circle -->
+                <button class="button" onclick="checkTable()">
+                    <span class="icon">🪑</span> <!-- Table Icon -->
+                </button>
+            </div>
+            <p class="button-label">Check Table Availability</p>
+        </div>
+    </div>
+
+    <script>
+        function showMenu() {
+            // Redirect to the restaurant's menu page
+            window.location.href = 'menu.html'; // Replace with actual menu URL
+        }
+
+        function checkTable() {
+            // Check for reservations or table availability (for now just an alert)
+            let hasReservation = confirm("Do you have a reservation?");
+            if (hasReservation) {
+                alert("Welcome! Please proceed inside.");
+            } else {
+                let availableTables = confirm("We have tables available. Would you like to enter?");
+                if (availableTables) {
+                    alert("Welcome! You may enter.");
+                } else {
+                    alert("Sorry, we are fully booked at the moment.");
+                }
+            }
+        }
+
+
+
+
+        var ip=window.location.hostname;
+        if (ip=='')
+            ip='127.0.0.1';
+        var port = 9100;
+
+        console.log("Trying connection...")
+        wsrobot_init(ip,port);
+
+        function hello() {
+            console.log("runnig interaction...");
+            codews.send("im.robot.say('hello')\n");
+        }
+
+    </script>
+
+</body>
+</html>
