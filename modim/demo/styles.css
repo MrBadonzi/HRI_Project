@@ -1,7 +1,7 @@
 /* General body styling */
 body {
     font-family: 'Quicksand', sans-serif; /* Use a nicer font */
-    background-image: url('img/image.jpg'); /* Add your background image here */
+    background-image: url('img/background.jpg'); /* Add your background image here */
     background-size: cover; /* Make sure the image covers the entire background */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
@@ -17,7 +17,7 @@ body {
 .large-bold {
     font-size: 60px; /* Increased font size for emphasis */
     font-weight: bold; /* Make the title bold */
-    color: #333; /* Dark color for contrast */
+    color: white; /* Dark color for contrast */
     margin-bottom: 50px; /* Space below the title */
     text-align: center; /* Center the text */
 }
@@ -47,8 +47,8 @@ body {
 .button-wrapper {
     width: 200px; /* Width for the circle */
     height: 200px; /* Height for the circle */
-    border: 5px solid black; /* Black circle border */
-    border-radius: 50%; /* Make it circular */
+    border: 2px solid black; /* Black circle border */
+    border-radius: 100%; /* Make it circular */
     display: flex;
     justify-content: center;
     align-items: center; /* Center the button within the circle */
@@ -60,14 +60,15 @@ body {
     width: 200px;
     height: 200px; /* Set a fixed height for buttons */
     border: none;
-    border-radius: 50%; /* Make buttons circular */
+    border-radius: 100%; /* Make buttons circular */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 48px; /* Icon size */
+    font-size: 80px; /* Icon size */
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
+    opacity: 80%
 }
 
 /* Green button (Menu button) */
@@ -92,14 +93,14 @@ body {
 .button-label {
     font-size: 50px; /* Increased font size for button labels */
     font-weight: bold; /* Make the button labels bold */
-    color: #333; /* Dark color for contrast */
+    color: white; /* Dark color for contrast */
     margin: 0; /* Remove default margin */
 }
 
 /* Divider styling */
 .divider {
     width: 2px;
-    height: 80%;
+    height: 0%;
     background-color: #dcdcdc;
     position: absolute;
     left: 50%;
