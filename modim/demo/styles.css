@@ -70,7 +70,18 @@ body {
     color: white;
     opacity: 80%
 }
-
+.input[type=button] {
+    background-color: #A01010; /* Red */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin:10px 10px 10px 10px;
+  }
 /* Green button (Menu button) */
 .button.menu {
     background-color: #2ecc71;

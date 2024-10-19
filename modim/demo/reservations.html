@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .reservation-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 equal columns */
+            grid-template-rows: auto;
+            gap: 50px; /* Space between tables */
+            justify-items: center;
+        }
+
+        .table {
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: #fff;
+            text-align: center;
+            height: 120px; /* Fixed height for all tables */
+        }
+
+        /* Default table color */
+        .available {
+            background-color: #4caf50; /* Green color for available tables */
+        }
+
+        /* Occupied table color */
+        .occupied {
+            background-color: red; /* Red color for occupied tables */
+        }
+
+        /* Different widths for rectangular tables */
+        .table-small {
+            width: 180px;
+        }
+
+        .table-medium {
+            width: 240px;
+        }
+
+        .table-large {
+            width: 320px;
+        }
+
+        /* Custom positions for each table (shuffle) */
+        .table-1 {
+            grid-column: 1 / span 2; /* Place Table 1 across two columns */
+            grid-row: 1;
+        }
+
+        .table-2 {
+            grid-column: 4 / span 2;
+            grid-row: 1;
+        }
+
+        .table-3 {
+            grid-column: 2 / span 3;
+            grid-row: 2;
+        }
+
+        .table-4 {
+            grid-column: 6;
+            grid-row: 2;
+        }
+
+        .table-5 {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        .table-6 {
+            grid-column: 4 / span 3;
+            grid-row: 3;
+        }
+      .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #555;
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">Back</a>
+    <h1>Restaurant Reservation</h1>
+
+    <div class="reservation-container">
+        <!-- Table 1 (Available, Small Rectangle) -->
+        <div class="table table-small available table-1">
+            Table 1
+        </div>
+
+        <!-- Table 2 (Occupied, Medium Rectangle) -->
+        <div class="table table-medium occupied table-2">
+            Table 2
+        </div>
+
+        <!-- Table 3 (Available, Large Rectangle) -->
+        <div class="table table-large available table-3">
+            Table 3
+        </div>
+
+        <!-- Table 4 (Occupied, Small Rectangle) -->
+        <div class="table table-small occupied table-4">
+            Table 4
+        </div>
+
+        <!-- Table 5 (Available, Medium Rectangle) -->
+        <div class="table table-medium available table-5">
+            Table 5
+        </div>
+
+        <!-- Table 6 (Occupied, Large Rectangle) -->
+        <div class="table table-large occupied table-6">
+            Table 6
+        </div>
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+
+
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/Hey_1
+----
+TTS
+<*,*,it,*>: Ciao! Benvenuto!
+<*,*,*,*>:  Hello! Welcome!
+----
+
+
+
+
+
+
