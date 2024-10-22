@@ -79,9 +79,9 @@
         <span class="close" onclick="closeReviewPopup()">&times;</span>
         <h2>How was your experience?</h2>
         <div class="emoji-section">
-            <button class="emoji" onclick="submitReview('happy')">😊</button>
-            <button class="emoji" onclick="submitReview('neutral')">😐</button>
-            <button class="emoji" onclick="submitReview('sad')">😞</button>
+            <button class="emoji" onclick="review('good')">😊</button>
+            <button class="emoji" onclick="review('neutral')">😐</button>
+            <button class="emoji" onclick="review('bad')">😞</button>
         </div>
     </div>
 </div>
@@ -104,12 +104,6 @@
         document.getElementById("review-popup").style.display = "none";
     }
 
-    function submitReview(feedback) {
-        alert("Thank you for your feedback: " + feedback);
-        closeReviewPopup(); // Close the popup after submitting
-    }
-
-
 
 
     var ip=window.location.hostname;
@@ -120,9 +114,18 @@
     console.log("Trying connection...")
     wsrobot_init(ip,port);
 
-    function hello() {
+    function review(reaction) {
         console.log("runnig interaction...");
-        codews.send("im.robot.say('hello')\n");
+        console.log("Reaction value is:", reaction);
+        if (reaction=='good'){
+
+            codews.send("im.robot.asay('Thanks for leaving your review')\n");}
+       else if (reaction=='bad')
+            codews.send("im.robot.asay('Sorry for your experience')\n");
+       else if (reaction=='neutral')
+            codews.send("im.robot.asay('We will try to improve next time')\n");
+
+        closeReviewPopup()
     }
 
 </script>
