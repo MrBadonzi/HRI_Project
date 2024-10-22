@@ -20,7 +20,6 @@ from ws_client import *
 
 def i1():
 
-
     im.display.loadUrl('index.html')
 
     im.init()
