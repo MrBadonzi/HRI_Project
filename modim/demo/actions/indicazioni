@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>:  img/tavolo23.JPG
+----
+TEXT
+<*,*,it,*>: La prego di accomodarsi al tavolo in sovra impressione
+<*,*,*,*>:  The table displayed on the screen is ready for you, please take your seat.
+----
+TTS
+<*,*,it,*>: La prego di accomodarsi al tavolo in sovra impressione
+<*,*,*,*>:  The table displayed on the screen is ready for you, please take your seat.
+----

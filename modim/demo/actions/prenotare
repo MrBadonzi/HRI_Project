@@ -1,0 +1,14 @@
+TEXT
+<*,*,it,*>: Mi dica se vuole prenotare un tavolo.
+<*,*,*,*>:  Tell me if you want to take a seat
+----
+TTS
+<*,*,it,*>:  Mi dica se vuole prenotare un tavolo.
+<*,*,*,*>:  Tell me if you want to take a seat
+----
+BUTTONS
+reservation
+
+<*, *, *, *>:   🍽️
+
+----

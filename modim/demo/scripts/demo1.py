@@ -3,6 +3,8 @@ import time
 import os
 import random
 
+
+
 try:
     sys.path.insert(0, os.getenv('MODIM_HOME') + '/src/GUI')
 except Exception as e:
@@ -21,24 +23,72 @@ def i1():
 
     im.init()
 
-    a = im.ask('welcome')  # wait for button
+    action = im.ask('welcome')  # wait for button
     # im.ask("menu")
 
-    if a == 'Menu':
+    if action == 'Menu':
         im.display.loadUrl('menu.html')
-        a = im.ask('menu')
-        if a == 'yes':
+        menu = im.ask('menu')
+        if menu == 'yes':
             # display answer
             im.executeModality('text_default', 'vongole e bottarga')
             # Using TTS service of the robot to speak
             im.executeModality('TTS', 'vongole e bottarga')
-        else:
+            time.sleep(5)
+        if menu == 'no':
             im.executeModality('text_default', 'okay stupido')
             # Using TTS service of the robot to speak
             im.executeModality('TTS', 'okay stupido')
-            #time.sleep(1000)
+            time.sleep(5)
 
-    elif a=='timeout':
+        prenotare = im.ask('prenotare')
+        if prenotare!='timeout':
+            im.display.loadUrl('reservations.html')
+
+            time.sleep(1)
+            tavolo = im.ask('reservation')
+
+            if int(tavolo) <= 4:
+                im.ask('indicazioni')
+                time.sleep(5)
+                im.init()
+
+            elif int(tavolo) > 4:
+                im.ask('occupato')
+                im.ask('goodbye')
+                im.init()
+
+            else:
+                im.ask('goodbye')
+                im.init()
+
+
+        else:
+            im.ask('goodbye')
+            im.init()
+
+    elif action=='Tables':
+        im.display.loadUrl('reservations.html')
+        time.sleep(1)
+        tavolo = im.ask('reservation')
+
+        if int(tavolo)<=4:
+            im.ask('indicazioni')
+            time.sleep(5)
+            im.init()
+
+        elif int(tavolo)>4:
+            im.ask('occupato')
+            im.ask('goodbye')
+            im.init()
+
+        else:
+            im.ask('goodbye')
+            im.init()
+
+
+    elif action=='timeout':
+        im.ask('goodbye')
         im.init()
 
 
