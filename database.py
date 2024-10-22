@@ -12,28 +12,27 @@
 #         self.reservations.pop(res)
 
 
-
 # class Table:
 #     def __init__(self, Tnumber, Maxseats):
 #         self.Tnumber = Tnumber
 #         self.Maxseats = Maxseats
-    
+
 
 class Reservation:
     def __init__(self, name, number, table):
-        self.name = name 
+        self.name = name
         self.number = number
         self.table = table
-    
+
     def getName(self):
         return self.name
-    
+
     def getNumber(self):
         return self.number
-    
+
     def getTable(self):
         return self.table
-    
+
 
 def getFreeTables(tables, dataset):
     fullTables = set()
@@ -42,5 +41,3 @@ def getFreeTables(tables, dataset):
             fullTables.add(elem.getTable())
     freeTables = tables.difference(fullTables)
     return freeTables
-    
-

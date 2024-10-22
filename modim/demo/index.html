@@ -9,77 +9,123 @@
     <!-- Add Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
+    <style>
+
+
+        input[type=button] {
+            background-color: #222;
+            width: 200px;
+            height: 200px; /* Set a fixed height for buttons */
+            border: none;
+            border-radius: 10%; /* Make buttons circular */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 100px; /* Icon size */
+           margin: 0 20px;
+            justify-content: center;
+            align-items: center;
+            opacity:95%;
+            text-align: center;
+            font-size: 50px;}
+
+        }
+
+        input[type=button]:hover {
+            background-color: #444;
+        }
+
+      .menu-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 60%;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+
+
+    </style>
+
 </head>
 <body>
 
-    <h1 class="large-bold">Welcome to Our Restaurant</h1>
 
-    <div class="main-section">
+<div class="menu-container">
+    <h1 class="large-bold">
+        <div align='center' id='text_default'>Welcome to Our Restaurant</div>
+    </h1>
+
+    <div class="main-section" id="buttons">
         <!-- Left button for the menu -->
-
-         <div class="button-section">
-            <div class="button-wrapper"> <!-- New wrapper div for circle -->
-                <button class="button" onclick="checkTable()">
-                    <span class="icon">🍽️</span> <!-- Table Icon -->
-                </button>
-            </div>
-            <p class="button-label">Check Table </p>
-        </div>
-
-        <!-- Vertical divider line -->
-        <div class="divider"></div>
-
-        <div class="button-section">
-            <div class="button-wrapper"> <!-- New wrapper div for circle -->
-                <button class="button menu" onclick="showMenu()">
-                    <span class="icon">📜</span> <!-- Menu Icon -->
-                </button>
-            </div>
-            <p class="button-label">View Menu</p>
-        </div>
-
         <!-- Right button for checking table availability -->
 
     </div>
-
-    <script>
-        function showMenu() {
-            // Redirect to the restaurant's menu page
-            window.location.href = 'menu.html'; // Replace with actual menu URL
-        }
-
-        function checkTable() {
-            // Check for reservations or table availability (for now just an alert)
-            let hasReservation = confirm("Do you have a reservation?");
-            if (hasReservation) {
-                alert("Welcome! Please proceed inside.");
-            } else {
-                let availableTables = confirm("We have tables available. Would you like to enter?");
-                if (availableTables) {
-                    alert("Welcome! You may enter.");
-                } else {
-                    alert("Sorry, we are fully booked at the moment.");
-                }
-            }
-        }
+</div>
 
 
+<!-- Review Button -->
+<div class="review-section">
+    <div class="review-button-wrapper">
+        <button class="review-button" onclick="openReviewPopup()">Leave a Review</button>
+    </div>
+</div>
+
+<!-- Review Popup -->
+<div id="review-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeReviewPopup()">&times;</span>
+        <h2>How was your experience?</h2>
+        <div class="emoji-section">
+            <button class="emoji" onclick="submitReview('happy')">😊</button>
+            <button class="emoji" onclick="submitReview('neutral')">😐</button>
+            <button class="emoji" onclick="submitReview('sad')">😞</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showMenu() {
+        // Redirect to the restaurant's menu page
+        window.location.href = 'menu.html'; // Replace with actual menu URL
+    }
+
+    function showTables() {
+        // Redirect to the restaurant's reservations page
+        window.location.href = 'reservations.html'; // Replace with actual menu URL
+    }
+    function openReviewPopup() {
+        document.getElementById("review-popup").style.display = "block";
+    }
+
+    function closeReviewPopup() {
+        document.getElementById("review-popup").style.display = "none";
+    }
+
+    function submitReview(feedback) {
+        alert("Thank you for your feedback: " + feedback);
+        closeReviewPopup(); // Close the popup after submitting
+    }
 
 
-        var ip=window.location.hostname;
-        if (ip=='')
-            ip='127.0.0.1';
-        var port = 9100;
 
-        console.log("Trying connection...")
-        wsrobot_init(ip,port);
 
-        function hello() {
-            console.log("runnig interaction...");
-            codews.send("im.robot.say('hello')\n");
-        }
+    var ip=window.location.hostname;
+    if (ip=='')
+        ip='127.0.0.1';
+    var port = 9100;
 
-    </script>
+    console.log("Trying connection...")
+    wsrobot_init(ip,port);
+
+    function hello() {
+        console.log("runnig interaction...");
+        codews.send("im.robot.say('hello')\n");
+    }
+
+</script>
 
 </body>
 </html>

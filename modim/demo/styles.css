@@ -15,7 +15,7 @@ body {
 
 /* Title styling */
 .large-bold {
-    font-size: 60px; /* Increased font size for emphasis */
+    font-size: 50px; /* Increased font size for emphasis */
     font-weight: bold; /* Make the title bold */
     color: white; /* Dark color for contrast */
     margin-bottom: 50px; /* Space below the title */
@@ -23,97 +23,98 @@ body {
 }
 
 /* Main section with buttons */
+
 .main-section {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Raise buttons */
-    width: 70%;
-    height: 50%;
+    justify-content: center;
+    align-items: center; /* Raise buttons */
     position: relative;
     margin-top: 20px; /* Adjust as needed */
 }
+.main-section input[type=button]:hover {
+    background-color: #444;
+}
 
-/* Each button section with icon and text */
-.button-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
+.review-section {
+    margin-top: 50px;
     text-align: center;
-    flex: 1;
-}
 
-/* Wrapper for circular button */
-.button-wrapper {
-    width: 200px; /* Width for the circle */
-    height: 200px; /* Height for the circle */
-    border: 2px solid black; /* Black circle border */
-    border-radius: 100%; /* Make it circular */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center the button within the circle */
-    margin-bottom: 10px; /* Space between button and text */
 }
+/* Review Button Styling */
+.review-button-wrapper {
 
-/* Circular button styling */
-.button {
-    width: 200px;
-    height: 200px; /* Set a fixed height for buttons */
-    border: none;
-    border-radius: 100%; /* Make buttons circular */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 80px; /* Icon size */
-    display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    opacity: 80%
+    margin-top: 50px; /* Add space between the buttons and review button */
 }
-.input[type=button] {
-    background-color: #A01010; /* Red */
-    border: none;
-    border-radius: 8px;
-    color: white;
-    padding: 14px 24px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+
+
+.review-button {
+    width: 300px;
+    height: 100px;
     font-size: 24px;
-    margin:10px 10px 10px 10px;
-  }
-/* Green button (Menu button) */
-.button.menu {
-    background-color: #2ecc71;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
 }
 
-.button.menu:hover {
-    background-color: #27ae60;
+.review-button:hover {
+    background-color: #c0392b;
 }
 
-/* Blue button (Check Table Availability) */
-.button {
-    background-color: #3498db;
+/* Popup styles */
+.popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-.button:hover {
-    background-color: #2980b9;
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    margin: auto;
 }
 
-/* Text styling linked below each button */
-.button-label {
-    font-size: 50px; /* Increased font size for button labels */
-    font-weight: bold; /* Make the button labels bold */
-    color: white; /* Dark color for contrast */
-    margin: 0; /* Remove default margin */
-}
-
-/* Divider styling */
-.divider {
-    width: 2px;
-    height: 0%;
-    background-color: #dcdcdc;
+.close {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
 }
+
+.emoji-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.emoji {
+    font-size: 48px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.emoji:hover {
+    transform: scale(1.2);
+}
+
+

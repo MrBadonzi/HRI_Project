@@ -1,0 +1,16 @@
+TEXT
+<*,*,it,*>: Ecco il menu, vuole sapere il piatto del giorno?
+<*,*,*,*>:  here's the menu, do you want to know the dish of the day?
+----
+TTS
+<*,*,it,*>: Ecco il menu, vuole sapere il piatto del giorno?
+<*,*,*,*>:  here's the menu, do you want to know the dish of the day?
+----
+BUTTONS
+yes
+<*, *, it, *>:  SI
+<*, *, *, *>:  YES
+no
+<*, *, it, *>:  NO
+<*, *, *, *>:  NO
+----
