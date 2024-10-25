@@ -3,8 +3,6 @@ import time
 import os
 import random
 
-
-
 try:
     sys.path.insert(0, os.getenv('MODIM_HOME') + '/src/GUI')
 except Exception as e:
@@ -19,17 +17,20 @@ from ws_client import *
 
 
 def i1():
-
     im.display.loadUrl('index.html')
 
     im.init()
 
     action = im.ask('welcome')  # wait for button
-    # im.ask("menu")
+    # im.ask("PiattodelGiorno")
 
+    # VUOLE VEDERE MENU
     if action == 'Menu':
-        im.display.loadUrl('menu.html')
-        menu = im.ask('menu')
+
+        im.display.loadUrl('PiattodelGiorno.html')
+
+        # VUOLE VEDERE PIATTO DEL GIORNO
+        menu = im.ask('PiattodelGiorno')
         if menu == 'yes':
             # display answer
             im.executeModality('text_default', 'vongole e bottarga')
@@ -42,15 +43,20 @@ def i1():
             im.executeModality('TTS', 'okay stupido')
             time.sleep(5)
 
+        # SI VUOLE SEDERE AL TAVOLO?
         prenotare = im.ask('sedere')
 
-        if prenotare!='timeout':
+        # SI
+        if prenotare != 'timeout':
+
             im.display.loadUrl('reservations.html')
 
             time.sleep(1)
 
+            # HA PRENOTATO?
             prenotazione = im.ask('prenotato')
             if prenotazione == 'NO':
+                # QUANTI SIETE?
                 tavolo = im.ask('postiTavolo')
 
                 if int(tavolo) <= 4:
@@ -77,12 +83,15 @@ def i1():
             im.ask('goodbye')
             im.init()
 
-    elif action=='Tables':
+    # VOGLIO SEDERMI AL TAVOLO
+    elif action == 'Tables':
 
         im.display.loadUrl('reservations.html')
         time.sleep(1)
+        # AVETE PRENOTATO?
         prenotazione = im.ask('prenotato')
         if prenotazione == 'NO':
+            # QUANTI SIETE?
             tavolo = im.ask('postiTavolo')
 
             if int(tavolo) <= 4:
@@ -105,7 +114,7 @@ def i1():
             im.init()
 
 
-    elif action=='timeout':
+    elif action == 'timeout':
         im.ask('goodbye')
         im.init()
 
