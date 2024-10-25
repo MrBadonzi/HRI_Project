@@ -19,7 +19,7 @@ def handleName(lastInput):
             res_found = True
             break
     if not res_found:
-        tts_service.say("I don't have any reservation with that name. I will contact someone")
+        tts_service.say("I don't have any postiTavolo with that name. I will contact someone")
 
 
 def handleNumber(lastInput):
@@ -32,7 +32,7 @@ def handleNumber(lastInput):
 
 def handleLastAnswer(lastAnswer):
 
-    if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
+    if "name" in lastAnswer.lower() and "postiTavolo" in lastAnswer.lower():
         lastInput.signal.connect(handleName)
 
 def handleSentence(currentSentence):

@@ -42,14 +42,48 @@ def i1():
             im.executeModality('TTS', 'okay stupido')
             time.sleep(5)
 
-        prenotare = im.ask('prenotare')
+        prenotare = im.ask('sedere')
 
         if prenotare!='timeout':
             im.display.loadUrl('reservations.html')
 
             time.sleep(1)
-            # TODO: CHIDERE SE HANNO PRENOTAZIONE
-            tavolo = im.ask('reservation')
+
+            prenotazione = im.ask('prenotato')
+            if prenotazione == 'NO':
+                tavolo = im.ask('postiTavolo')
+
+                if int(tavolo) <= 4:
+                    im.ask('indicazioni')
+                    time.sleep(5)
+                    im.init()
+
+                elif int(tavolo) > 4:
+                    im.ask('occupato')
+                    im.ask('goodbye')
+                    im.init()
+
+                else:
+                    im.ask('goodbye')
+                    im.init()
+            else:
+                im.ask('indicazioni')
+                time.sleep(5)
+                im.init()
+
+
+
+        else:
+            im.ask('goodbye')
+            im.init()
+
+    elif action=='Tables':
+
+        im.display.loadUrl('reservations.html')
+        time.sleep(1)
+        prenotazione = im.ask('prenotato')
+        if prenotazione == 'NO':
+            tavolo = im.ask('postiTavolo')
 
             if int(tavolo) <= 4:
                 im.ask('indicazioni')
@@ -64,30 +98,10 @@ def i1():
             else:
                 im.ask('goodbye')
                 im.init()
-
-
         else:
-            im.ask('goodbye')
-            im.init()
-
-    elif action=='Tables':
-        # TODO: CHIDERE SE HANNO PRENOTAZIONE
-        im.display.loadUrl('reservations.html')
-        time.sleep(1)
-        tavolo = im.ask('reservation')
-
-        if int(tavolo)<=4:
+            time.sleep(2)
             im.ask('indicazioni')
             time.sleep(5)
-            im.init()
-
-        elif int(tavolo)>4:
-            im.ask('occupato')
-            im.ask('goodbye')
-            im.init()
-
-        else:
-            im.ask('goodbye')
             im.init()
 
 
