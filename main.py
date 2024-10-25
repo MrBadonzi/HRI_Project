@@ -25,14 +25,21 @@ def handleName(lastInput):
 def handleNumber(lastInput):
     if lastInput.isdigit():
         if freeTables:
-            tts_service.say("We have a free spot left! Please follow the indications to table " + str(freeTables.pop()))
+            tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
         else:
-            tts_service.say("I am sorry, we are full for today! I can still show you the menu if you want")
+            tts_service.say(" I'm sorry, there are no available tables")
 
 
 def handleLastAnswer(lastAnswer):
+
     if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
         lastInput.signal.connect(handleName)
+
+def handleSentence(currentSentence):
+    print(currentSentence)
+
+
+
 
 
 if __name__ == "__main__":
@@ -110,6 +117,10 @@ if __name__ == "__main__":
         lastInput = memory_service.subscriber("Dialog/LastInput")
 
         lastInput.signal.connect(handleNumber)
+
+        currentSentence = memory_service.subscriber('ALTextToSpeech/CurrentSentence')
+
+        currentSentence.signal.connect(handleSentence)
 
         try:
             raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")

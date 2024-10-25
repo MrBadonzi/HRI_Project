@@ -1,10 +1,10 @@
 TEXT
 <*,*,it,*>: quanti siete al tavolo?
-<*,*,*,*>:  How many for the table?
+<*,*,*,*>:  How many seats do you need?
 ----
 TTS
 <*,*,it,*>: quanti siete al tavolo?
-<*,*,*,*>:  How many for the table?
+<*,*,*,*>:  How many seats do you need?
 ----
 
 BUTTONS

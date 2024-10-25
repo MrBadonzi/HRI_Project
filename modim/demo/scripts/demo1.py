@@ -43,10 +43,12 @@ def i1():
             time.sleep(5)
 
         prenotare = im.ask('prenotare')
+
         if prenotare!='timeout':
             im.display.loadUrl('reservations.html')
 
             time.sleep(1)
+            # TODO: CHIDERE SE HANNO PRENOTAZIONE
             tavolo = im.ask('reservation')
 
             if int(tavolo) <= 4:
@@ -69,6 +71,7 @@ def i1():
             im.init()
 
     elif action=='Tables':
+        # TODO: CHIDERE SE HANNO PRENOTAZIONE
         im.display.loadUrl('reservations.html')
         time.sleep(1)
         tavolo = im.ask('reservation')
