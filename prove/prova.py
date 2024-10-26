@@ -20,6 +20,28 @@ ans_service = session.service("ALAnimatedSpeech")
 configuration = {"bodyLanguageMode":"contextual"}
 ans_service.say("Hello. How are you?", configuration)
 
+# try:
+    
+#     tabletService = session.service("ALTabletService")
+
+#     # Don't forget to disconnect the signal at the end
+#     signalID = 0
+
+#     # function called when the signal onTouchDown is triggered
+#     def callback(x, y):
+#         print("coordinate are x: ", x, " y: ", y)
+#         if x > 640:
+#             # disconnect the signal
+#             tabletService.onTouchDown.disconnect(signalID)
+#             app.stop()
+
+#     # attach the callback function to onJSEvent signal
+#     signalID = tabletService.onTouchDown.connect(callback)
+#     #app.run()
+
+# except Exception, e:
+#     print("Error was: ", e)
+
 # normal posture
 #rp_service = session.service("ALRobotPosture")
 #posture = "Stand"
