@@ -9,14 +9,47 @@ import argparse
 import os
 from naoqi import ALProxy
 
+def tablet_motion():
+    angles_tablet = {"RElbowRoll": 1.55, "RElbowYaw": 1.01, "RHand": 1, "RShoulderPitch": 0.97, "RShoulderRoll": -0.65, "RWristYaw": 1.20,
+                    "LElbowRoll": -0.01, "LElbowYaw": -2.07, "LHand": 1, "LShoulderPitch": 1.38, "LShoulderRoll": 1.56, "LWristYaw": -0.84}
+    
+    angles_reset = {"RElbowRoll": 0.0, "RElbowYaw": 1.0, "RHand": 0, "RShoulderPitch": 1.49, "RShoulderRoll": 0.05, "RWristYaw": 1.19,
+                    "LElbowRoll": 0.0, "LElbowYaw": -1.0, "LHand": 0, "LShoulderPitch": 1.49, "LShoulderRoll": 0.07, "LWristYaw": -0.84}
+    
+    motion_service  = session.service("ALMotion")
+    jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw", 
+                  "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw"]
+    angles = [1.55, 1.01, 1, 0.97, -0.65, 1.20,
+             -0.01, -2.07, 1, 1.38, 1.56, -0.84]
+    times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
+             5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
+    isAbsolute = True
+    motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
+
+    tts_service.say("The table displayed on the screen is ready for you, please take your seat.")
+    #print("Resetting\n")
+
+    motion_service  = session.service("ALMotion")
+    jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw",
+                  "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw"]
+    angles = [0.0, 1.0, 0.0, 1.49, 0.05, 1.19,
+              0.0, -1.0, 0, 1.49, 0.07, -0.84]
+    times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
+              5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
+    isAbsolute = True
+    motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
+
+
+
 
 def handleName(lastInput):
     res_found = False
     for elem in database:
         if lastInput == elem.getName().lower():
             table = elem.getTable()
-            tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(table))
-            #TODO: INSERIRE GESTO CHE INDICA TABLET E FUORI
+            tablet_motion()
+            #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(table))
+            
             res_found = True
             break
     if not res_found:
@@ -28,8 +61,8 @@ def handleName(lastInput):
 def handleNumber(lastInput):
     if lastInput.isdigit():
         if freeTables:
-            tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
-            #TODO: INSERIRE GESTO CHE INDICA TABLET E FUORI
+            #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
+            tablet_motion()
         else:
             tts_service.say("I'm sorry, there are no available tables")
             #TODO: INSERIRE GESTO triste
@@ -134,6 +167,7 @@ if __name__ == "__main__":
         currentSentence = memory_service.subscriber('ALTextToSpeech/CurrentSentence')
 
         currentSentence.signal.connect(handleSentence)
+
 
         try:
             raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")

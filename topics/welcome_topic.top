@@ -11,7 +11,7 @@ u: ([yes sure] {[thanks "thank you"]}) Do you want to have a look at the menu or
                 u4: (yes) What is the name of your reservation?
                 u4: (no) How many seats do you need?
             u3: (no) Alright, have a nice day!
-    u1: ({I [want "would like"] to take a} seat) ^goto(reservation)
+    u1: ({I [want "would like"] to take a} seat) ^goto(reservation2)
 u: (no {[thanks "thank you"]}) Do you want to leave a review instead?
     u1: (yes) Cool! Tell me if your experience was Bad, Fine or Excellent.
         u2: ({it was} bad) Sorry for your experience.
@@ -24,3 +24,8 @@ proposal: %reservation Do you want to take a seat?
         u2: (yes) What is the name of your reservation?
         u2: (no) How many seats do you need?
     u1: (no) Alright, have a nice day!
+
+proposal: %reservation2 Do you have a reservation?
+    u1: (yes) What is the name of your reservation?
+    u1: (no) How many seats do you need?
+    
