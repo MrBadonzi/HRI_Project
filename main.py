@@ -24,6 +24,7 @@ def handleName(lastInput):
         #TODO: INSERIRE GESTO CHE spallucce e dito su
 
 
+
 def handleNumber(lastInput):
     if lastInput.isdigit():
         if freeTables:

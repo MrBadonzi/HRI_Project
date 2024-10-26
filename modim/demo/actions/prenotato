@@ -1,0 +1,15 @@
+TEXT
+<*,*,it,*>: Ha una prenotazione
+<*,*,*,*>:  Do you have a reservation?
+----
+TTS
+<*,*,it,*>: Ha una prenotazione
+<*,*,*,*>:  Do you have a reservation?
+----
+BUTTONS
+yes
+<*, *, it, *>:  SI
+<*, *, *, *>:  YES
+no
+<*, *, *, *>:  NO
+----

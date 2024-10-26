@@ -36,7 +36,7 @@ if __name__ == "__main__":
             pepper_cmd.robot.say("Welcome! Can I help you?")
         elif lang_dict.code == 'it':
             if answer == 'si': #TODO: gestire tutte le risposte positive
-              pepper_cmd.robot.say("Vuole accomodarsi o vuole vedere il menu?")
+              pepper_cmd.robot.say("Vuole accomodarsi o vuole vedere il PiattodelGiorno?")
             elif answer == 'no':  #TODO: gestire tutte le risposte negative
                 pepper_cmd.robot.say("Okay, scusi il disturbo")  
         else:

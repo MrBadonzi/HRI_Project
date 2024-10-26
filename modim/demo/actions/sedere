@@ -1,9 +1,9 @@
 TEXT
-<*,*,it,*>: Mi dica se vuole prenotare un tavolo.
+<*,*,it,*>: Mi dica se si vuole sedere al tavolo.
 <*,*,*,*>:  Tell me if you want to take a seat
 ----
 TTS
-<*,*,it,*>:  Mi dica se vuole prenotare un tavolo.
+<*,*,it,*>:  Mi dica se si vuole sedere al tavolo.
 <*,*,*,*>:  Tell me if you want to take a seat
 ----
 BUTTONS
