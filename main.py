@@ -1,7 +1,7 @@
 # TODO: aggiungere movimenti quando: si mostra il percorso per il tavolo
 #                                    si dice che non posto
 #                                    si dice che non prenotazione
-#                                    ancora posto!!
+#                                    recensione
 import os, qi
 from sonar import *
 from database import *
@@ -15,28 +15,40 @@ def handleName(lastInput):
     for elem in database:
         if lastInput == elem.getName().lower():
             table = elem.getTable()
-            tts_service.say("Please follow the indications to table " + str(table))
+            tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(table))
+            #TODO: INSERIRE GESTO CHE INDICA TABLET E FUORI
             res_found = True
             break
     if not res_found:
         tts_service.say("I don't have any reservation with that name. I will contact someone")
+        #TODO: INSERIRE GESTO CHE spallucce e dito su
 
 
 def handleNumber(lastInput):
     if lastInput.isdigit():
         if freeTables:
             tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
+            #TODO: INSERIRE GESTO CHE INDICA TABLET E FUORI
         else:
-            tts_service.say(" I'm sorry, there are no available tables")
+            tts_service.say("I'm sorry, there are no available tables")
+            #TODO: INSERIRE GESTO triste
 
 
 def handleLastAnswer(lastAnswer):
-
     if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
         lastInput.signal.connect(handleName)
 
 def handleSentence(currentSentence):
-    print(currentSentence)
+    if "sorry" in currentSentence.lower() and "experience" in currentSentence.lower():
+        print("bad")
+        #TODO: INSERIRE GESTO TRISTE CON OCCHI ROSSI e suono triste
+    elif "improve" in currentSentence.lower():
+        print("neutral")
+        #TODO: INSERIRE GESTO okay CON OCCHI bianchi e suono oksy
+    elif "happy" in currentSentence.lower():
+        print("excellent")
+        #TODO: INSERIRE GESTO felice CON OCCHI verdi e suono festa
+
 
 
 
