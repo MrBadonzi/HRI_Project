@@ -8,64 +8,68 @@ from database import *
 import argparse
 import os
 from naoqi import ALProxy
+from motion import *
 
-def tablet_motion():
-    angles_tablet = {"RElbowRoll": 1.55, "RElbowYaw": 1.01, "RHand": 1, "RShoulderPitch": 0.97, "RShoulderRoll": -0.65, "RWristYaw": 1.20,
-                    "LElbowRoll": -0.01, "LElbowYaw": -2.07, "LHand": 1, "LShoulderPitch": 1.38, "LShoulderRoll": 1.56, "LWristYaw": -0.84}
+def onTouched(value):
+    tts_service.say("Nice to meet you, I am Pepper. Can I help you?")
+
+    # Activating the loaded topic
+    ALDialog.activateTopic(topic_name)
+
+    # Starting the dialog engine - we need to type an arbitrary string as the identifier
+    # We subscribe only ONCE, regardless of the number of topics we have activated
+    ALDialog.subscribe('my_dialog_example')
+    try:
+            
+        value = raw_input(":")
+        
+    except KeyboardInterrupt:
+
+        stop_flag = True
+        # Stop the dialog engine
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivate and unload the main topic
+        ALDialog.deactivateTopic(topic_name)
+        ALDialog.unloadTopic(topic_name)  
+
     
-    angles_reset = {"RElbowRoll": 0.0, "RElbowYaw": 1.0, "RHand": 0, "RShoulderPitch": 1.49, "RShoulderRoll": 0.05, "RWristYaw": 1.19,
-                    "LElbowRoll": 0.0, "LElbowYaw": -1.0, "LHand": 0, "LShoulderPitch": 1.49, "LShoulderRoll": 0.07, "LWristYaw": -0.84}
-    
-    motion_service  = session.service("ALMotion")
-    jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw", 
-                  "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw"]
-    angles = [1.55, 1.01, 1, 0.97, -0.65, 1.20,
-             -0.01, -2.07, 1, 1.38, 1.56, -0.84]
-    times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
-             5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
-    isAbsolute = True
-    motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
-
-    tts_service.say("The table displayed on the screen is ready for you, please take your seat.")
-    #print("Resetting\n")
-
-    motion_service  = session.service("ALMotion")
-    jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw",
-                  "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw"]
-    angles = [0.0, 1.0, 0.0, 1.49, 0.05, 1.19,
-              0.0, -1.0, 0, 1.49, 0.07, -0.84]
-    times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
-              5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
-    isAbsolute = True
-    motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
-
-
-
 
 def handleName(lastInput):
     res_found = False
     for elem in database:
         if lastInput == elem.getName().lower():
             table = elem.getTable()
-            tablet_motion()
+            tablet_motion(session, tts_service)
             #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(table))
-            
             res_found = True
             break
     if not res_found:
-        tts_service.say("I don't have any reservation with that name. I will contact someone")
-        #TODO: INSERIRE GESTO CHE spallucce e dito su
+        #tts_service.say("I don't have any reservation with that name. I will contact someone")
+        sad_motion(session, tts_service ,reservation=True)
 
+    stop_flag = True
+    # Stop the dialog engine
+    ALDialog.unsubscribe('my_dialog_example')
+    # Deactivate and unload the main topic
+    ALDialog.deactivateTopic(topic_name)
+    ALDialog.unloadTopic(topic_name)
 
 
 def handleNumber(lastInput):
     if lastInput.isdigit():
         if freeTables:
             #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
-            tablet_motion()
+            tablet_motion(session, tts_service)
         else:
-            tts_service.say("I'm sorry, there are no available tables")
-            #TODO: INSERIRE GESTO triste
+            #tts_service.say("I'm sorry, there are no available tables")
+            sad_motion(session, tts_service ,table=True)
+        
+        stop_flag = True
+        # Stop the dialog engine
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivate and unload the main topic
+        ALDialog.deactivateTopic(topic_name)
+        ALDialog.unloadTopic(topic_name)
 
 
 def handleLastAnswer(lastAnswer):
@@ -74,14 +78,32 @@ def handleLastAnswer(lastAnswer):
 
 def handleSentence(currentSentence):
     if "sorry" in currentSentence.lower() and "experience" in currentSentence.lower():
-        print("bad")
-        #TODO: INSERIRE GESTO TRISTE CON OCCHI ROSSI e suono triste
+        sad_motion(session, tts_service)
+        #TODO: INSERIRE OCCHI ROSSI
+        stop_flag = True
+        # Stop the dialog engine
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivate and unload the main topic
+        ALDialog.deactivateTopic(topic_name)
+        ALDialog.unloadTopic(topic_name)
     elif "improve" in currentSentence.lower():
-        print("neutral")
-        #TODO: INSERIRE GESTO okay CON OCCHI bianchi e suono oksy
-    elif "happy" in currentSentence.lower():
-        print("excellent")
-        #TODO: INSERIRE GESTO felice CON OCCHI verdi e suono festa
+        neutral_motion(session)
+        #TODO: INSERIRE OCCHI bianchi
+        stop_flag = True
+        # Stop the dialog engine
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivate and unload the main topic
+        ALDialog.deactivateTopic(topic_name)
+        ALDialog.unloadTopic(topic_name)
+    elif "yay" in currentSentence.lower():
+        happy_motion(session)
+        #TODO: INSERIRE OCCHI verdi
+        stop_flag = True
+        # Stop the dialog engine
+        ALDialog.unsubscribe('my_dialog_example')
+        # Deactivate and unload the main topic
+        ALDialog.deactivateTopic(topic_name)
+        ALDialog.unloadTopic(topic_name)
 
 
 
@@ -140,6 +162,18 @@ if __name__ == "__main__":
 
         # asr.unsubscribe("Test_ASR")
 
+        # touch sensors
+        touch_service = session.service("ALTouch")
+        sl = touch_service.getSensorList() # vector of sensor names
+        print(sl)
+        v = touch_service.getStatus()  # vector of sensor status [name, bool]
+        print(v)
+
+        # callback function
+        anyTouch = memory_service.subscriber("TouchChanged")
+        idAnyTouch = anyTouch.signal.connect(onTouched)
+
+
         ALDialog = session.service("ALDialog")
         ALDialog.setLanguage("English")
 
@@ -170,17 +204,17 @@ if __name__ == "__main__":
 
 
         try:
-            raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")
+            
+            value = raw_input("\nSpeak to the robot using rules from the just loaded .top file. Press Enter when finished:")
+        
+        except KeyboardInterrupt:
 
-        finally:
-            # stopping the dialog engine
+            stop_flag = True
+            # Stop the dialog engine
             ALDialog.unsubscribe('my_dialog_example')
-
-            # Deactivating the topic
+            # Deactivate and unload the main topic
             ALDialog.deactivateTopic(topic_name)
-
-            # now that the dialog engine is stopped and there are no more activated topics,
-            # we can unload our topic and free the associated memory
-            ALDialog.unloadTopic(topic_name)
-
+            ALDialog.unloadTopic(topic_name)   
+            
+        
     app.run()  # blocking
