@@ -1,21 +1,18 @@
-# class Database:
-#     def __init__(self, reservations):
-#         self.reservations = reservations
+class Database:
+    def __init__(self):
+        self.database = [Reservation("Mario", 3, 1), Reservation("Fraco", 4, 2), Reservation("Giuseppe", 2, 3),
+            Reservation("Giulia", 3, 4),
+            Reservation("Sara", 4, 5), Reservation("Totti", 2, 6)]
 
-#     def getReservations(self):
-#         return self.reservations
+    def getDatabase(self):
+        return self.database
 
-#     def addReservation(self, res):
-#         self.reservations.append(res)
+class Table:
+    def __init__(self):
+        self.tables = {1, 2, 3, 4, 5, 6}
 
-#     def removeReservation(self, res):
-#         self.reservations.pop(res)
-
-
-# class Table:
-#     def __init__(self, Tnumber, Maxseats):
-#         self.Tnumber = Tnumber
-#         self.Maxseats = Maxseats
+    def getTables(self):
+        return self.tables
 
 
 class Reservation:
