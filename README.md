@@ -14,3 +14,8 @@
 - Start Coreograph
 - Connect to 127.0.0.1 on port 9559
 - In playground start the desired python file
+
+
+```sh
+./run_nginx.bash $HOME/playground/HRI_Project/modim/demo
+```
