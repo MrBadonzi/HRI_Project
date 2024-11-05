@@ -16,6 +16,9 @@
 - In playground start the desired python file
 
 
+## Tablet
+###start web server 
+dentro cartella docker 
 ```sh
 ./run_nginx.bash $HOME/playground/HRI_Project/modim/demo
 ```
