@@ -29,15 +29,15 @@ def i1():
     # VUOLE VEDERE MENU
     if action == 'Menu':
 
-        im.display.loadUrl('PiattodelGiorno.html')
+        im.display.loadUrl('menu.html')
 
         # VUOLE VEDERE PIATTO DEL GIORNO
         menu = im.ask('PiattodelGiorno')
-        if menu == 'piatto':
+        if menu == 'yes':
             # display answer
-            im.executeModality('text_default', 'vongole e bottarga')
+            im.executeModality('text_default', 'Spaghetti with clamps and bottarga')
             # Using TTS service of the robot to speak
-            im.executeModality('TTS', 'vongole e bottarga')
+            im.executeModality('TTS', 'Spaghetti with clamps and bottarga')
             time.sleep(5)
 
         # SI VUOLE SEDERE AL TAVOLO?
