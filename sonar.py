@@ -15,3 +15,11 @@ class Sonar:
                 print(sonarValues)
                 people_detected = True
         return people_detected
+
+    def check_people_detection(self, threshold = 1.0):
+        sonarValues = self.getData()
+        print(sonarValues)
+        if (sonarValues[0] != 0.0 and sonarValues[0] <= threshold):  # NO controllo dietro perche accostato a muro
+            print(sonarValues)
+            people_detected = True
+        return people_detected

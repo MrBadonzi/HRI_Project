@@ -10,124 +10,10 @@ from naoqi import ALProxy
 from motion import *
 from touch import *
 from dialog_handle import *
-
-# def onTouched(value):
-#     anyTouch.signal.disconnect(idAnyTouch)
-#     tts_service.say("Nice to meet you, I am Pepper. Can I help you?")
-
-#     # Activating the loaded topic
-#     topic_name = ALDialog.loadTopic(topf_path.encode('utf-8'))
-#     ALDialog.activateTopic(topic_name)
-
-#     # Starting the dialog engine - we need to type an arbitrary string as the identifier
-#     # We subscribe only ONCE, regardless of the number of topics we have activated
-#     ALDialog.subscribe('my_dialog_example')
-#     try:       
-#         value = raw_input(":")
-        
-#     except KeyboardInterrupt:
-
-#         stop_flag = True
-#         # Stop the dialog engine
-#         ALDialog.unsubscribe('my_dialog_example')
-#         # Deactivate and unload the main topic
-#         ALDialog.deactivateTopic(topic_name)
-#         ALDialog.unloadTopic(topic_name)  
-
-#     anyTouch.signal.connect(onTouched)
-
-# def handleName(lastInput, idLastInput):
-#     res_found = False
-#     for elem in database:
-#         if lastInput == elem.getName().lower():
-#             table = elem.getTable()
-#             tablet_motion(session, tts_service)
-#             #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(table))
-#             res_found = True
-#             break
-#     if not res_found:
-#         #tts_service.say("I don't have any reservation with that name. I will contact someone")
-#         sad_motion(session, tts_service ,reservation=True)
-
-#     stop_flag = True
-#     # Stop the dialog engine
-#     ALDialog.unsubscribe('my_dialog_example')
-#     # Deactivate and unload the main topic
-#     ALDialog.deactivateTopic(topic_name)
-#     ALDialog.unloadTopic(topic_name)
-
-#     lastInput.signal.disconnect(idLastInput)
-
-
-# def handleNumber(lastInput):
-#     if lastInput.isdigit():
-#         if freeTables:
-#             #tts_service.say("The table displayed on the screen is ready for you, please take your seat." + str(freeTables.pop()))
-#             tablet_motion(session, tts_service)
-#         else:
-#             #tts_service.say("I'm sorry, there are no available tables")
-#             sad_motion(session, tts_service ,table=True)
-        
-#         stop_flag = True
-#         # Stop the dialog engine
-#         ALDialog.unsubscribe('my_dialog_example')
-#         # Deactivate and unload the main topic
-#         ALDialog.deactivateTopic(topic_name)
-#         ALDialog.unloadTopic(topic_name)
-
-
-# def handleLastAnswer(lastAnswer):
-#     if "name" in lastAnswer.lower() and "reservation" in lastAnswer.lower():
-#         idLastInput = lastInput.signal.connect(handleName, idLastInput)
-#         return
-
-# def handleSentence(currentSentence):
-#     print(currentSentence)
-#     if "sorry" in currentSentence.lower() and "experience" in currentSentence.lower():
-#         sad_motion(session, tts_service)
-#         #TODO: INSERIRE OCCHI ROSSI
-#         stop_flag = True
-#         # Stop the dialog engine
-#         ALDialog.unsubscribe('my_dialog_example')
-#         # Deactivate and unload the main topic
-#         ALDialog.deactivateTopic(topic_name)
-#         ALDialog.unloadTopic(topic_name)
-#     elif "improve" in currentSentence.lower():
-#         neutral_motion(session)
-#         #TODO: INSERIRE OCCHI bianchi
-#         stop_flag = True
-#         # Stop the dialog engine
-#         ALDialog.unsubscribe('my_dialog_example')
-#         # Deactivate and unload the main topic
-#         ALDialog.deactivateTopic(topic_name)
-#         ALDialog.unloadTopic(topic_name)
-#     elif "yay" in currentSentence.lower():
-#         happy_motion(session)
-#         #TODO: INSERIRE OCCHI verdi
-#         stop_flag = True
-#         # Stop the dialog engine
-#         ALDialog.unsubscribe('my_dialog_example')
-#         # Deactivate and unload the main topic
-#         ALDialog.deactivateTopic(topic_name)
-#         ALDialog.unloadTopic(topic_name)
-#     elif "name" in currentSentence.lower() and "reservation" in currentSentence.lower():
-#         lastInput.signal.connect(handleName)
-
-
-
-
-
+from cd import *
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
-    # tables = {1, 2, 3, 4, 5, 6}
-
-    # database = [Reservation("Mario", 3, 1), Reservation("Fraco", 4, 2), Reservation("Giuseppe", 2, 3),
-    #             Reservation("Giulia", 3, 4),
-    #             Reservation("Sara", 4, 5), Reservation("Totti", 2, 6)]
-
-    # freeTables = getFreeTables(tables, database)
 
     parser.add_argument("--project-path", type=str,
                         default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")
@@ -170,15 +56,6 @@ if __name__ == "__main__":
 
         # asr.unsubscribe("Test_ASR")
 
-        # touch sensors
-        # touch_service = session.service("ALTouch")
-        # sl = touch_service.getSensorList() # vector of sensor names
-        # v = touch_service.getStatus()  # vector of sensor status [name, bool]
-
-        # # callback function
-        # anyTouch = memory_service.subscriber("TouchChanged")
-        # idAnyTouch = anyTouch.signal.connect(onTouched)
-
 
         ALDialog = session.service("ALDialog")
         ALDialog.setLanguage("English")
@@ -196,21 +73,11 @@ if __name__ == "__main__":
         # We subscribe only ONCE, regardless of the number of topics we have activated
         ALDialog.subscribe('my_dialog_example')
 
-        ####PROCESS EVERY ROBOT ANSWER
-        # lastAnswer = memory_service.subscriber("Dialog/LastAnswer")
+        ########  TO START TABLET  ##########
+        # with cd(os.path.join("./modim/demo/", "scripts")):
+        #     os.system("python demo1.py")
 
-        # lastAnswer.signal.connect(handleLastAnswer)
-
-        ####PROCESS EVERY HUMAN ANSWERE
-        # lastInput = memory_service.subscriber("Dialog/LastInput")
-
-        # lastInput.signal.connect(handleNumber)
-
-        # currentSentence = memory_service.subscriber('ALTextToSpeech/CurrentSentence')
-
-        # currentSentence.signal.connect(handleSentence)
-
-        dialog = Dialog(memory_service, session, tts_service, ALDialog, topic_name)
+        dialog = Dialog(memory_service, session, tts_service, ALDialog, topic_name, sonar)
 
 
         try:
@@ -224,7 +91,7 @@ if __name__ == "__main__":
             ALDialog.unsubscribe('my_dialog_example')
             # Deactivate and unload the main topic
             ALDialog.deactivateTopic(topic_name)
-            ALDialog.unloadTopic(topic_name)   
-            
+            ALDialog.unloadTopic(topic_name)  
+
         
     app.run()  # blocking
