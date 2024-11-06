@@ -7,10 +7,7 @@ TTS
 <*,*,*,*>:  here's the menu, do you want to know the dish of the day?
 ----
 BUTTONS
-yes
-<*, *, it, *>:  SI
-<*, *, *, *>:  YES
-no
-<*, *, it, *>:  NO
-<*, *, *, *>:  NO
-----
+piatto
+<*, *, it, *>: piatto del giorno
+<*, *, *, *>:  dish of the day
+

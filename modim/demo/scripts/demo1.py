@@ -17,6 +17,8 @@ from ws_client import *
 
 
 def i1():
+
+   
     im.display.loadUrl('index.html')
 
     im.init()
@@ -31,16 +33,11 @@ def i1():
 
         # VUOLE VEDERE PIATTO DEL GIORNO
         menu = im.ask('PiattodelGiorno')
-        if menu == 'yes':
+        if menu == 'piatto':
             # display answer
             im.executeModality('text_default', 'vongole e bottarga')
             # Using TTS service of the robot to speak
             im.executeModality('TTS', 'vongole e bottarga')
-            time.sleep(5)
-        if menu == 'no':
-            im.executeModality('text_default', 'okay stupido')
-            # Using TTS service of the robot to speak
-            im.executeModality('TTS', 'okay stupido')
             time.sleep(5)
 
         # SI VUOLE SEDERE AL TAVOLO?
@@ -115,8 +112,11 @@ def i1():
 
 
     elif action == 'timeout':
+        time.sleep(100)
         im.ask('goodbye')
         im.init()
+
+
 
 
 if __name__ == "__main__":
