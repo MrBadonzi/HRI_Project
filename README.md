@@ -17,6 +17,8 @@
 
 
 ## Tablet
+### Start modim
+- Start modim terminal
 ### Start web server 
 inside hri_software/docker run:
 ```sh
