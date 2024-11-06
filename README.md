@@ -17,7 +17,7 @@
 
 
 ## Tablet
-###start web server 
+### Start web server 
 inside hri_software/docker run:
 ```sh
 ./run_nginx.bash $HOME/playground/HRI_Project/modim/demo
