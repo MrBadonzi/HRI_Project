@@ -17,10 +17,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--project-path", type=str,
                         default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")
+    parser.add_argument("--tablet", action='store_true', help="Set tablet flag to True")
 
     args = parser.parse_args()
     project_path = args.project_path
-
+    tablet = args.tablet
+    
     pip = os.getenv('PEPPER_IP')
     pport = 9559
     url = "tcp://" + pip + ":" + str(pport)
@@ -73,16 +75,17 @@ if __name__ == "__main__":
         # We subscribe only ONCE, regardless of the number of topics we have activated
         ALDialog.subscribe('my_dialog_example')
 
-        ########  TO START TABLET  ##########
-        # with cd(os.path.join("./modim/demo/", "scripts")):
-        #     os.system("python demo1.py")
+        ########  START TABLET  ##########
+        if tablet:
+            with cd(os.path.join("./modim/demo/", "scripts")):
+                os.system("python demo1.py")
 
         dialog = Dialog(memory_service, session, tts_service, ALDialog, topic_name, sonar)
 
 
         try:
             
-            value = raw_input("\nSpeak to the robot using rules from the just loaded .top file.")
+            value = raw_input("\nSpeak to the robot using rules from the just loaded .top file:")
         
         except KeyboardInterrupt:
 
