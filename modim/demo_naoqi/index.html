@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pepper - Restaurant Maitre Interface</title>
-    <script src="qaws.js"></script>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
     <!-- Add Google Fonts -->
+    <script src="qaws.js"></script>
+    <link rel="stylesheet" href="styles.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -46,9 +46,31 @@
             align-items: center; /* Center content vertically */
         }
 
+        .menu-button {
+            width: 200px;
+            height: 200px;
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /*Center content vertically */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #040404;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 3em;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+                          
+        }
+
+        .menu-button:hover {
+            background-color: #555;
+        }
+
+
 
     </style>
-
+    
 </head>
 <body>
 
@@ -57,7 +79,7 @@
 
 <div class="menu-container">
     <h1 class="large-bold">
-        <div align='center' id='text_default'>Welcome to Our Restaurant</div>
+        <div align='center' id='text_default'>Do you want to have a look at the menu?</div>
     </h1>
 
     <div class="main-section" id="buttons">
@@ -67,13 +89,20 @@
     </div>
 </div>
 
+<div class="review-section">
+    <div class="review-button-wrapper">
+        <button class="menu-button" onclick="showMenu()">📜</button>
+    </div>
+</div>
 
-<!-- Review Button -->
+
 <div class="review-section">
     <div class="review-button-wrapper">
         <button class="review-button" onclick="openReviewPopup()">Leave a Review</button>
     </div>
 </div>
+
+<!-- menu Button -->
 
 <!-- Review Popup -->
 <div id="review-popup" class="popup">
@@ -96,7 +125,7 @@
 
     function showTables() {
         // Redirect to the restaurant's reservations page
-        window.location.href = 'reservations.html'; // Replace with actual menu URL
+        window.location.href = 'reservations_naoqi.html'; // Replace with actual menu URL
     }
     function openReviewPopup() {
         document.getElementById("review-popup").style.display = "block";
@@ -106,8 +135,6 @@
     function closeReviewPopup() {
         document.getElementById("review-popup").style.display = "none";
     }
-
-
 
     var ip=window.location.hostname;
     if (ip=='')

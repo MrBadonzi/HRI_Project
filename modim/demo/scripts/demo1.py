@@ -52,7 +52,7 @@ def i1():
 
             # HA PRENOTATO?
             prenotazione = im.ask('prenotato')
-            if prenotazione == 'NO':
+            if prenotazione == 'no':
                 # QUANTI SIETE?
                 tavolo = im.ask('postiTavolo')
 
@@ -70,9 +70,17 @@ def i1():
                     im.ask('goodbye')
                     im.init()
             else:
-                im.ask('indicazioni')
-                time.sleep(5)
-                im.init()
+                nome = im.ask('nome')
+                #im.ask('indicazioni')
+                if nome == "none":
+                    im.ask('mismatch')
+                    time.sleep(5)
+                    im.init()
+                else:
+                    im.ask('indicazioni')
+                    time.sleep(5)
+                    im.init()
+
 
 
 
@@ -87,7 +95,7 @@ def i1():
         time.sleep(1)
         # AVETE PRENOTATO?
         prenotazione = im.ask('prenotato')
-        if prenotazione == 'NO':
+        if prenotazione == 'no':
             # QUANTI SIETE?
             tavolo = im.ask('postiTavolo')
 
@@ -105,10 +113,16 @@ def i1():
                 im.ask('goodbye')
                 im.init()
         else:
-            time.sleep(2)
-            im.ask('indicazioni')
-            time.sleep(5)
-            im.init()
+            nome = im.ask('nome')
+            #im.ask('indicazioni')
+            if nome == "none":
+                im.ask('mismatch')
+                time.sleep(5)
+                im.init()
+            else:
+                im.ask('indicazioni')
+                time.sleep(5)
+                im.init()
 
 
     elif action == 'timeout':
@@ -125,6 +139,6 @@ if __name__ == "__main__":
     # local execution
     mws.setDemoPathAuto(__file__)
     # remote execution
-    # mws.setDemoPath('<ABSOLUTE_DEMO_PATH_ON_REMOTE_SERVER>')
+    #mws.setDemoPath('10.0.1.200')
 
     mws.run_interaction(i1)

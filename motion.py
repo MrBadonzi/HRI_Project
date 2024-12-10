@@ -1,4 +1,8 @@
-def tablet_motion(session, tts_service):
+import os
+
+
+
+def tablet_motion(session, tts_service, tablet):
     angles_tablet = {"RElbowRoll": 1.55, "RElbowYaw": 1.01, "RHand": 1, "RShoulderPitch": 0.97, "RShoulderRoll": -0.65, "RWristYaw": 1.20,
                     "LElbowRoll": -0.01, "LElbowYaw": -2.07, "LHand": 1, "LShoulderPitch": 1.38, "LShoulderRoll": 1.56, "LWristYaw": -0.84}
     
@@ -15,7 +19,13 @@ def tablet_motion(session, tts_service):
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
 
-    tts_service.say("The table displayed on the screen is ready for you, please take your seat.")
+    if not tablet:
+        os.system("python modim/demo_naoqi/scripts/tables.py")
+        
+
+        
+
+
     #print("Resetting\n")
 
     motion_service  = session.service("ALMotion")
@@ -28,14 +38,15 @@ def tablet_motion(session, tts_service):
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
 
-def sad_motion(session, tts_service ,table = False, reservation = False):
+def sad_motion(session, tts_service ,  tablet,table = False,reservation = False):
     audio_service = session.service("ALAudioPlayer")
     audio_service.playFile("/sounds/bad.mp3", _async=True)
 
 
-    angles_sad = {"RElbowRoll": 1.43, "RElbowYaw": 0.17, "RHand": 0, "RShoulderPitch": 2.08, "RShoulderRoll": -0.76, "RWristYaw": -0.04,
-                    "LElbowRoll": -1.37, "LElbowYaw": 0.37, "LHand": 0, "LShoulderPitch": 1.77, "LShoulderRoll": 0.72, "LWristYaw": 0.04,
-                    "HeadPitch": 0.28}
+    angles_sad = {"RElbowRoll": 0.01, "RElbowYaw": 0.49, "RHand": 0, "RShoulderPitch": 1.13, "RShoulderRoll": -0.05, "RWristYaw": -0.8,
+                    "LElbowRoll": -0.01, "LElbowYaw": -0.49, "LHand": 0, "LShoulderPitch": 1.13, "LShoulderRoll": 0.06, "LWristYaw": -0.8,
+                    "HeadPitch": 0.45, "HeadYaw": 0.0,
+                    "HipPitch": -1.04, "HipRoll": 0.0, "KneePitch": 0.51}
     
     angles_reset = {"RElbowRoll": 0.0, "RElbowYaw": 1.0, "RHand": 0, "RShoulderPitch": 1.49, "RShoulderRoll": 0.05, "RWristYaw": 1.19,
                     "LElbowRoll": 0.0, "LElbowYaw": -1.0, "LHand": 0, "LShoulderPitch": 1.49, "LShoulderRoll": 0.07, "LWristYaw": -0.84,
@@ -44,13 +55,14 @@ def sad_motion(session, tts_service ,table = False, reservation = False):
     motion_service  = session.service("ALMotion")
     jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw", 
                   "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw",
-                  "HeadPitch"]
+                  "HeadPitch", "HeadYaw", "HipPitch", "HipRoll", "KneePitch"]
     angles = [angles_sad["RElbowRoll"], angles_sad["RElbowYaw"], angles_sad["RHand"], angles_sad["RShoulderPitch"], angles_sad["RShoulderRoll"], angles_sad["RWristYaw"], 
               angles_sad["LElbowRoll"], angles_sad["LElbowYaw"], angles_sad["LHand"], angles_sad["LShoulderPitch"], angles_sad["LShoulderRoll"], angles_sad["LWristYaw"],
-              angles_sad["HeadPitch"]]
+              angles_sad["HeadPitch"], angles_sad["HeadYaw"], angles_sad["HipPitch"], angles_sad["HipRoll"], angles_sad["KneePitch"]]
     times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
              5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
-             5.0]
+             5.0, 5.0,
+             5.0, 5.0, 5.0]
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
     #, "HeadYaw": -0.66
@@ -59,23 +71,27 @@ def sad_motion(session, tts_service ,table = False, reservation = False):
     times  = [2.0, 4.0] 
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
-    if(table):
-        tts_service.say("I'm sorry, there are no available tables.")
-    elif(reservation):
-        tts_service.say("I don't have any reservation with that name. I will contact someone")
+    if not tablet:
+        if(table):
+            tts_service.say("I'm sorry, there are no available tables.")
+        elif(reservation):
+            tts_service.say("I don't have any reservation with that name. I will contact someone")
     
     print("Resetting\n")
 
     motion_service  = session.service("ALMotion")
     jointNames = ["RElbowRoll", "RElbowYaw", "RHand", "RShoulderPitch", "RShoulderRoll", "RWristYaw",
                   "LElbowRoll", "LElbowYaw", "LHand", "LShoulderPitch", "LShoulderRoll", "LWristYaw",
-                  "HeadPitch", "HeadYaw"]
+                  "HeadPitch", "HeadYaw", 
+                  "HipPitch", "HipRoll", "KneePitch"]
     angles = [0.0, 1.0, 0.0, 1.49, 0.05, 1.19,
               0.0, -1.0, 0, 1.49, 0.07, -0.84,
-              -0.38, 0.01]
+              -0.38, 0.01,
+              -0.04, -0.01, -0.01]
     times  = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
               5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
-              5.0, 5.0]
+              5.0, 5.0,
+              5.0, 5.0, 5.0]
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
 
@@ -154,12 +170,20 @@ def neutral_motion(session):
     isAbsolute = True
     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
 
+    # for i in range(2):
+    #     jointNames = ["LElbowRoll"]
+    #     angles = [-1.57, -0.87] 
+    #     times  = [2.0, 4.0] 
+    #     isAbsolute = True
+    #     motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
+
     for i in range(2):
-        jointNames = ["LElbowRoll"]
-        angles = [-1.57, -0.87] 
+        jointNames = ["LWristYaw"]
+        angles = [-0.65, 0.87] 
         times  = [2.0, 4.0] 
         isAbsolute = True
         motion_service.angleInterpolation(jointNames, angles, times, isAbsolute)
+
 
     
     print("Resetting\n")

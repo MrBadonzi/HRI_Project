@@ -13,14 +13,28 @@
 - Start NAOqi
 - Start Coreograph
 - Connect to 127.0.0.1 on port 9559
-- In playground start the desired python file
+- In ```playground/HRI_Project```:
+	- If you want to start the speech interaction run:
+	```sh
+	python main.py
+   	```	
+	- If you want to start the tablet interaction run:
+	```sh
+	python main.py --tablet
+   	```
+	
 
 
 ## Tablet
 ### Start modim
-- Start modim terminal
+- Start Modim
 ### Start web server 
-inside hri_software/docker run:
+Inside ```hri_software/docker```:
+- If you want to start the speech interaction run:
+```sh
+./run_nginx.bash $HOME/playground/HRI_Project/modim/demo_noqi
+```
+- If you want to start the tablet interaction run:
 ```sh
 ./run_nginx.bash $HOME/playground/HRI_Project/modim/demo
 ```

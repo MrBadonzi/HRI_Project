@@ -1,8 +1,6 @@
 topic: ~welcome_topic()
 language: enu
 
-concept: (name) ["The name is"]
-
 u: ([yes sure] {[thanks "thank you"]}) Do you want to have a look at the menu, take a seat or lave a review?
     u1: ({I [want "would like"] to look at the} menu) Perfect! Then click on the menu icon. Do you want to know the dish of the day?
         u2: (yes) Spaghetti with clams and bottarga. ^goto(reservation)

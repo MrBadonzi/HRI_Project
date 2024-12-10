@@ -1,9 +1,10 @@
 from motion import *
 from database import *
 from sonar import *
+import time
 
 class Dialog():
-    def __init__(self, memory_service, session, tts_service, ALDialog, topic_name, sonar):
+    def __init__(self, memory_service, session, tts_service, ALDialog, topic_name, sonar, tablet):
         # Get the services ALMemory, ALTextToSpeech.
         # touch sensors
         self.lastInput = memory_service.subscriber("Dialog/LastInput")
@@ -27,45 +28,53 @@ class Dialog():
         self.ALDialog = ALDialog
         self.topic_name = topic_name
         self.sonar = sonar
+        self.tablet = tablet
 
     def handleNumber(self, lastInput):
-        if lastInput.isdigit():
+        #print(lastInput)
+        numbers = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"}
+        if lastInput.lower() in numbers:
             if self.freeTables:
-                tablet_motion(self.session, self.tts_service)
+                self.tts_service.say("The table displayed on the screen is ready for you, please take your seat.")
+                tablet_motion(self.session, self.tts_service, self.tablet)
             else:
-                sad_motion(self.session, self.tts_service ,table=True)
+                sad_motion(self.session, self.tts_service ,self.tablet, table=True)
 
     def handleSentence(self, currentSentence):
-        if "sorry" in currentSentence.lower() and "experience" in currentSentence.lower():
-            sad_motion(self.session, self.tts_service)
-            #TODO: INSERIRE OCCHI ROSSI
+        #print(currentSentence)
+
+        if "sorry" in currentSentence.lower():# and "experience" in currentSentence.lower():
+            sad_motion(self.session, self.tts_service, self.tablet)
             
         elif "improve" in currentSentence.lower():
-            neutral_motion(self.session)
-            #TODO: INSERIRE OCCHI bianchi
-            
+            neutral_motion(self.session)            
         
         elif "yay" in currentSentence.lower():
             happy_motion(self.session)
-            #TODO: INSERIRE OCCHI verdi
             
         
         elif "name" in currentSentence.lower() and "reservation" in currentSentence.lower():
             self.idLastInput =  self.lastInput.signal.connect(self.handleName)
+
+        elif "displayed" in currentSentence.lower():
+            tablet_motion(self.session, self.tts_service, self.tablet)
         
         elif "day" in currentSentence.lower() and "nice" in currentSentence.lower():
             neutral_motion(self.session)
-            #TODO: INSERIRE OCCHI bianchi
+
             
     def handleName(self, lastInput):
         res_found = False
+        #print(lastInput)
         for elem in self.data:
-            if lastInput == elem.getName().lower():
+            #print(elem.getName().lower())
+            if lastInput.lower() == elem.getName().lower():
                 table = elem.getTable()
-                tablet_motion(self.session, self.tts_service)
+                self.tts_service.say("The table displayed on the screen is ready for you, please take your seat.")
+                tablet_motion(self.session, self.tts_service, self.tablet)
                 res_found = True
                 break
         if not res_found:
-            sad_motion(self.session, self.tts_service ,reservation=True)
+            sad_motion(self.session, self.tts_service ,self.tablet, reservation=True)
 
         self.lastInput.signal.disconnect(self.idLastInput)

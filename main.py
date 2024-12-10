@@ -10,20 +10,20 @@ from naoqi import ALProxy
 from motion import *
 from touch import *
 from dialog_handle import *
-from cd import *
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
+    #IN REALE PATH == /home/nao/temp/HRI/welcome_topic.top
+    #IN SIMULATA == /home/robot/playground/HRI_Project/topics/welcome_topic.top
     parser.add_argument("--project-path", type=str,
-                        default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")
+                        default="/home/robot/playground/HRI_Project/topics/welcome_topic.top")  # pepper/.../ prova_topic.top #/playground/HRI_Project/topics
     parser.add_argument("--tablet", action='store_true', help="Set tablet flag to True")
 
     args = parser.parse_args()
     project_path = args.project_path
     tablet = args.tablet
     
-    pip = os.getenv('PEPPER_IP')
+    pip = os.getenv('PEPPER_IP') #"10.0.1.201"  #"10.0.1.201" #
     pport = 9559
     url = "tcp://" + pip + ":" + str(pport)
 
@@ -47,16 +47,22 @@ if __name__ == "__main__":
         tts_service.say("Welcome! Can I help you?")  # Benvenuto! Posso aiutarla?
 
         # FORSE SERVE IN REALE
-        # asr = ALProxy("ALSpeechRecognition", pip , 9559)
-        # vocabulary = ["hello", "what", "I don't understand", "english", "can you speak in eanglish", "can you talk in eanglish"]
-        # asr.setVocabulary(vocabulary, False)
-        # asr.subscribe("Test_ASR")
+        # asr_service = session.service("ALSpeechRecognition")
 
+        # asr_service.setLanguage("English")
+
+        # # Example: Adds "yes", "no" and "please" to the vocabulary (without wordspotting)
+        # vocabulary = ["yes", "no", "menu", "seat", "bad", "fine", "excellent", "sure", "I would like to take a seat", "I would like to look at the menu", "I would like to leave a review", "bad", "fine", "excellent", "it was bad", "it was fine", "it was excellent", "totti", "four","jacob"]
+        # asr_service.setVocabulary(vocabulary, False)
+
+        # # Start the speech recognition engine with user Test_ASR
+        # asr_service.subscribe("Test_ASR")
         # response = memory_service.getData("WordRecognized")
-        # if response:
-        #     print("User responded:", response)
+        # print("User responded:", response)
+        # print('Speech recognition engine started')
+        # #time.sleep(20)
+        # asr_service.unsubscribe("Test_ASR")
 
-        # asr.unsubscribe("Test_ASR")
 
 
         ALDialog = session.service("ALDialog")
@@ -75,26 +81,28 @@ if __name__ == "__main__":
         # We subscribe only ONCE, regardless of the number of topics we have activated
         ALDialog.subscribe('my_dialog_example')
 
+        dialog = Dialog(memory_service, session, tts_service, ALDialog, topic_name, sonar, tablet)
+
+
         ########  START TABLET  ##########
         if tablet:
-            with cd(os.path.join("./modim/demo/", "scripts")):
-                os.system("python demo1.py")
+            os.system("python modim/demo/scripts/demo1.py")
 
-        dialog = Dialog(memory_service, session, tts_service, ALDialog, topic_name, sonar)
+        else:
 
 
-        try:
+            try:
+                
+                value = raw_input("\nSpeak to the robot using rules from the just loaded .top file:")
             
-            value = raw_input("\nSpeak to the robot using rules from the just loaded .top file:")
-        
-        except KeyboardInterrupt:
+            except KeyboardInterrupt:
 
-            stop_flag = True
-            # Stop the dialog engine
-            ALDialog.unsubscribe('my_dialog_example')
-            # Deactivate and unload the main topic
-            ALDialog.deactivateTopic(topic_name)
-            ALDialog.unloadTopic(topic_name)  
+                stop_flag = True
+                # Stop the dialog engine
+                ALDialog.unsubscribe('my_dialog_example')
+                # Deactivate and unload the main topic
+                ALDialog.deactivateTopic(topic_name)
+                ALDialog.unloadTopic(topic_name)  
 
         
     app.run()  # blocking

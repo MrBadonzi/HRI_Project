@@ -1,0 +1,24 @@
+TEXT
+<*,*,it,*>: Qual è il nome della sua prenotazione?
+<*,*,*,*>:  What is the name of your reservation?
+----
+TTS
+<*,*,it,*>: Qual è il nome della sua prenotazione?
+<*,*,*,*>:  What is the name of your reservation?
+----
+BUTTONS
+mario
+<*, *, *, *>:  Mario
+jacob
+<*, *, *, *>:  Jacob
+bob
+<*, *, *, *>:  Bob
+dan
+<*, *, *, *>:  Dan
+sara
+<*, *, *, *>:  Sara
+sandy
+<*, *, *, *>:  Sandy
+none
+<*, *, *, *>:  NONE
+----

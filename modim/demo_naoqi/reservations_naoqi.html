@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Restaurant Reservation</title>
+    <script src="qaws.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('img/tables.jpg');
+            margin: 0;
+            padding: 20px;
+            height: 100%; /* Ensure body takes full height */
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+
+        }
+
+        /* Menu container */
+        .menu-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 60%;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        input[type=button] {
+            background-color: #222;
+            width: 100px;
+            height: 50px; /* Set a fixed height for buttons */
+            border: none;
+            border-radius: 10%; /* Make buttons circular */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 100px; /* Icon size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: inline-block;
+            margin: 0 20px;
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+            font-size: 30px;}
+
+        input[type=button]:hover {
+            background-color: #444;
+        }
+
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #555;
+
+
+
+    </style>
+</head>
+<body>
+<a class="back-button" href="index.html">Back</a>
+
+
+<div class="menu-container">
+    <p>
+        <h1>
+            <div align='center' id='text_default'>The table displayed on the screen is ready for you, please take your seat.</div>
+        </h1>
+    </p>
+    <!-- image -->
+    <p>
+    <div align='center'> <img height=300 id='image_default' src="img/tavolo9no23.JPG" alt="No image"/> </div>
+    </p>
+
+        <p>
+            <div align='center' id='buttons'>
+            <!-- input type="button" id="hello" value="Hello" onclick="hello()" -->
+            </div>
+        </p>
+
+
+</div>
+
+</body>
+<script>
+    var ip=window.location.hostname;
+        if (ip=='')
+            ip='127.0.0.1';
+        var port = 9100;
+
+        console.log("Trying connection...")
+        wsrobot_init(ip,port);
+
+</script>
+</html>

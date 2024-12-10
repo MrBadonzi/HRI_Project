@@ -1,15 +1,15 @@
 class Database:
     def __init__(self):
-        self.database = [Reservation("Mario", 3, 1), Reservation("Fraco", 4, 2), Reservation("Giuseppe", 2, 3),
-            Reservation("Giulia", 3, 4),
-            Reservation("Sara", 4, 5), Reservation("Totti", 2, 6)]
+        self.database = [Reservation("Mario", 3, 1), Reservation("Jacob", 4, 2), Reservation("Dan", 2, 3),
+            Reservation("Bob", 3, 4),
+            Reservation("Sara", 4, 5), Reservation("Sandy", 2, 6)]
 
     def getDatabase(self):
         return self.database
 
 class Table:
     def __init__(self):
-        self.tables = {1, 2, 3, 4, 5, 6}
+        self.tables = {1, 2, 3, 4, 5, 6, 7}
 
     def getTables(self):
         return self.tables
